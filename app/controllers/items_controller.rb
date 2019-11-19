@@ -10,8 +10,11 @@ class ItemsController < ApplicationController
     end
     def create
         @item = Item.new(item_params)
-        @item.save
-        redirect_to @item
+        if @item.save
+            redirect_to @item
+        else
+            render :new
+        end
     end
 
     def edit
@@ -20,7 +23,10 @@ class ItemsController < ApplicationController
     def update
         @item = Item.find(params[:id])
         @item.update(item_params)
-        redirect_to @item
+            redirect_to @item
+        else
+            render :edit
+        end
     end
 
     def destroy
